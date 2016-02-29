@@ -11,3 +11,4 @@ GET     /webjars/*file                    controllers.WebJarAssets.at(file)
 GET     /login                      controllers.Login.showForm
 GET     /signup                     controllers.SignUp.showForm
 POST    /submit                     controllers.Login.processForm
+POST    /signedup                     controllers.SignUp.processForm
