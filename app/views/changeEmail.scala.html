@@ -1,0 +1,30 @@
+@(myLogin: Form[(String, String, String)])(implicit session: play.api.mvc.Session, flash:Flash, message:Messages)
+
+@main("Change Email") {
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="form-group col-md-4">
+        @if(flash.get("error").isDefined){
+        <div class="alert alert-danger">
+            <strong>Warning: </strong> @flash.get("error")
+        </div>
+        }
+
+        @helper.form(action = routes.ChangeEmail.processForm()) {
+
+        @helper.inputText(myLogin("email"),'type->"email",'class->"form-control",'_label -> "Current Email",'_showConstraints -> false,'required->true)
+
+        @helper.inputText(myLogin("newEmail"),'type->"email",'class->"form-control",'_label -> "New Email",'_showConstraints -> false,'required->true)
+
+        @helper.inputText(myLogin("repeatEmail"),'type->"email",'class->"form-control",'_label -> "Repeat Email",'_showConstraints -> false,'required->true)
+
+        <button type="submit" class="btn btn-default">Submit</button>
+
+        }
+    </div>
+    <div class="col-md-4"></div>
+
+</div>
+
+}

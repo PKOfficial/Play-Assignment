@@ -1,9 +1,14 @@
 package controllers
 
-import models.CustomerService
+import models.{CustomerService, Customer}
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.mvc.{Action, Controller}
+import scala.concurrent.ExecutionContext.Implicits.global
+import play.api.i18n.Messages.Implicits._
+import scala.concurrent.Future
+import scala.concurrent.duration._
+import play.api.Play.current
+import play.api.mvc.{ResponseHeader, Result, Controller, Action}
 
 /**
   * Created by akash on 29/2/16.
@@ -16,25 +21,30 @@ class ChangeEmail extends Controller {
     tuple(
       "email" -> nonEmptyText,
       "newEmail" -> nonEmptyText,
-      "repeateEmail" -> nonEmptyText
+      "repeatEmail" -> nonEmptyText
     )
   }
 
-  def showForm = Action{
-    Ok("Here Show ChangePassword")
+  def showForm = Action{implicit request =>
+    if (request.session.get("email").isEmpty)
+      Redirect(routes.Login.showForm())
+    else
+      Ok(views.html.changeEmail(customerForm))
   }
 
   def processForm = Action{ implicit request =>
 
     customerForm.bindFromRequest.fold(
 
-      formErrors => { Redirect(routes.SignUp.showForm())},
+      formErrors => {
+        BadRequest(views.html.changeEmail(formErrors))
+      },
       customerData => {
         val customerexist = customerObj.getCustomer(customerData._1)
-        if(customerData._1 == customerexist.email)
-          Redirect(routes.SignUp.showForm())
+        if(customerData._1 != customerexist.email)
+          Redirect(routes.ChangeEmail.showForm()).flashing("error" -> "Email not Found")
         else if(customerData._2 != customerData._3)
-          Redirect(routes.SignUp.showForm())
+          Redirect(routes.ChangeEmail.showForm()).flashing("error"->"Email do not match.")
         else
           Ok("Go To Home")
       }

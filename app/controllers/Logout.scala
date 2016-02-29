@@ -13,13 +13,9 @@ import play.api.mvc.{ResponseHeader, Result, Controller, Action}
 /**
   * Created by akash on 29/2/16.
   */
-class AccountInfo extends Controller {
+class Logout extends Controller {
 
-  def showForm = Action { implicit request =>
-    if (request.session.get("email").isEmpty)
-      Redirect(routes.Login.showForm())
-    else
-      Ok(views.html.home())
+  def showForm = Action{ implicit request =>
+    Redirect(routes.Login.showForm()).withNewSession
   }
-
 }

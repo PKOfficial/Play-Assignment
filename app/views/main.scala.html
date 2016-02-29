@@ -29,7 +29,7 @@
                     <div class="pull-right">
                         <div style="margin-top:10px;margin-bottom:10px">
                             @if(session.get("email").isDefined){
-                            @session.get("answer_key") <strong>Logout!!</strong>
+                            @session.get("email") <strong><a href = "/logout">Logout</a>!!</strong>
                             }
                             @if(!session.get("email").isDefined){
                             <a href="/login"> Login</a> (Have no account? <a href="/signup">Sign Up</a>!!)

@@ -1,9 +1,14 @@
 package controllers
 
-import models.CustomerService
+import models.{CustomerService, Customer}
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.mvc.{Action, Controller}
+import scala.concurrent.ExecutionContext.Implicits.global
+import play.api.i18n.Messages.Implicits._
+import scala.concurrent.Future
+import scala.concurrent.duration._
+import play.api.Play.current
+import play.api.mvc.{ResponseHeader, Result, Controller, Action}
 
 /**
   * Created by akash on 29/2/16.
@@ -21,21 +26,27 @@ class ChangePassword extends Controller {
     )
   }
 
-  def showForm = Action{
-    Ok("Here Show ChangePassword")
+  def showForm = Action{implicit request =>
+    if (request.session.get("email").isEmpty)
+      Redirect(routes.Login.showForm())
+    else
+      Ok(views.html.changepass(customerForm))
   }
 
   def processForm = Action{ implicit request =>
 
     customerForm.bindFromRequest.fold(
 
-      formErrors => { Redirect(routes.SignUp.showForm())},
+      formErrors => {
+        BadRequest(views.html.changepass(formErrors))
+      },
       customerData => {
         val customerexist = customerObj.getCustomer(customerData._1)
-        if(customerData._1 == customerexist.email)
-          Redirect(routes.SignUp.showForm())
+        if(customerData._1 != customerexist.email || customerData._2 != customerexist.password)
+          Redirect(routes.ChangePassword.showForm()).flashing("error"->"Invalid Email or Password")
+
         else if(customerData._3 != customerData._4 )
-          Redirect(routes.SignUp.showForm())
+          Redirect(routes.ChangePassword.showForm()).flashing("error"->"Password not matched")
         else
           Ok("Go To Home")
       }

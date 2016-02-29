@@ -23,7 +23,10 @@ class ForgetPassword extends Controller{
   }
 
   def showForm = Action{ implicit request =>
-    Ok(views.html.forgetpass(customerForm))
+    if (request.session.get("email").isDefined)
+      Ok(views.html.home())
+    else
+      Ok(views.html.forgetpass(customerForm))
   }
 
   def processForm = Action{ implicit request =>

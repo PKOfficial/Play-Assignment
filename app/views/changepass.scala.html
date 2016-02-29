@@ -1,0 +1,33 @@
+@(myLogin: Form[(String, String, String, String)])(implicit session: play.api.mvc.Session, flash:Flash, message:Messages)
+
+@main("Change Password") {
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="form-group col-md-4">
+
+        @if(flash.get("error").isDefined){
+        <div class="alert alert-danger">
+            <strong>Warning: </strong> @flash.get("error")
+        </div>
+        }
+
+        @helper.form(action = routes.ChangePassword.processForm()) {
+
+        @helper.inputText(myLogin("email"),'type->"email",'class->"form-control",'_label -> "Email",'_showConstraints -> false,'required->true)
+
+        @helper.inputPassword(myLogin("oldPassword"),'class->"form-control",'_label -> "Old Password",'_showConstraints -> false,'required -> false)
+
+        @helper.inputPassword(myLogin("newPassword"),'class->"form-control",'_label -> "New Password",'_showConstraints -> false,'required -> false)
+
+        @helper.inputPassword(myLogin("repeatPassword"),'class->"form-control",'_label -> "Repeat Password",'_showConstraints -> false,'required -> false)
+
+        <button type="submit" class="btn btn-default">Submit</button>
+
+        }
+    </div>
+    <div class="col-md-4"></div>
+
+</div>
+
+}

@@ -23,9 +23,11 @@ class SignUp extends Controller {
     )
   }
 
-  def showForm = Action{ implicit request =>
-
-    Ok(views.html.signup(customerForm))
+  def showForm = Action { implicit request =>
+    if (request.session.get("email").isDefined)
+      Ok(views.html.home())
+    else
+      Ok(views.html.signup(customerForm))
   }
 
   def processForm = Action{ implicit request =>

@@ -24,9 +24,11 @@ class Login extends Controller {
   }
 
   def showForm() = Action { implicit request =>
-    Ok(views.html.login(customerForm))
+    if (request.session.get("email").isDefined)
+      Ok(views.html.home())
+    else
+      Ok(views.html.login(customerForm))
   }
-
 
   def processForm = Action{ implicit request =>
 
@@ -38,7 +40,7 @@ class Login extends Controller {
       customerData => {
         val customer = customerObj.getCustomer(customerData.email)
         if(customer.email == customerData.email && customer.password == customerData.password)
-          Ok("Now Here")
+          Redirect(routes.AccountInfo.showForm()).withSession("email" -> customer.email)
         else
         Redirect(routes.Login.showForm()).flashing("error"->"Login Failed")
       }

@@ -1,10 +1,15 @@
-@(myLogin: Form[Customer])(implicit session: play.api.mvc.Session, flash:Flash, message:Messages)
+@()(implicit session: play.api.mvc.Session, flash:Flash, message:Messages)
 
-@main("Login Page") {
+@main("Home Page") {
 
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
+
+        <h1>Welcome</h1>
+        <h2>@session.get("email")</h2>
+        <p style="text-align:center;"><a href="/changeemail"> Change Email</a></p>
+        <p style="text-align:center;"><a href="/changepass">Change Password</a></p>
 
     </div>
     <div class="col-md-4"></div>
