@@ -1,0 +1,27 @@
+@(myLogin: Form[(String)])(implicit session: play.api.mvc.Session, flash:Flash, message:Messages)
+
+@main("Forget Password") {
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="form-group col-md-4">
+
+        @if(flash.get("error").isDefined){
+        <div class="alert alert-danger">
+            <strong>Warning: </strong> Invalid email provided
+        </div>
+        }
+
+        @helper.form(action = routes.ForgetPassword.processForm()) {
+
+        @helper.inputText(myLogin("email"),'type->"email",'class->"form-control",'_label -> "Email",'_showConstraints -> false,'required->true)
+
+        <button type="submit" class="btn btn-default">Submit</button>
+
+        }
+    </div>
+    <div class="col-md-4"></div>
+
+</div>
+
+}

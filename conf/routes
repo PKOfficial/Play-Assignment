@@ -10,5 +10,7 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 GET     /webjars/*file                    controllers.WebJarAssets.at(file)
 GET     /login                      controllers.Login.showForm
 GET     /signup                     controllers.SignUp.showForm
+GET     /forget                     controllers.ForgetPassword.showForm
 POST    /submit                     controllers.Login.processForm
 POST    /signedup                     controllers.SignUp.processForm
+POST    /forgetpass                     controllers.ForgetPassword.processForm
