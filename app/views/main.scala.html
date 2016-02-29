@@ -1,4 +1,4 @@
-@(title: String)(content: Html)
+@(title: String)(content: Html)(implicit session: play.api.mvc.Session)
 
 <!DOCTYPE html>
 
@@ -21,14 +21,19 @@
                 <div class="col-md-4">
                     <div class="pull-left">
                         <div class="row" style="margin-top:5px;">
-                            <img src="@routes.Assets.versioned("images/logo.png")" class="img-rounded">
+                            <img src="@routes.Assets.versioned("images/logo.png")" width="60%" class="img-rounded">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-8">
                     <div class="pull-right">
                         <div style="margin-top:10px;margin-bottom:10px">
+                            @if(session.get("email").isDefined){
+                            @session.get("answer_key") <strong>Logout!!</strong>
+                            }
+                            @if(!session.get("email").isDefined){
                             <a href="/login"> Login</a> (Have no account? <a href="/signup">Sign Up</a>!!)
+                            }
                         </div>
                     </div>
                 </div>
@@ -75,7 +80,7 @@
 
 
         <div class="container">
-            <div class="row" style="background-color:gray;margin-bottom:20px;color:white">
+            <div class="row" style="background-color:gray;margin-bottom:20px;color:white;border-radius: 10px;">
                 <center><h1>@title</h1></center>
             </div>
             @content

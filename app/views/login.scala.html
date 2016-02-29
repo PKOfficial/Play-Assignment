@@ -1,15 +1,16 @@
-@(myLogin: Form[Customer])(implicit flash:Flash, message:Messages)
+@(myLogin: Form[Customer])(implicit session: play.api.mvc.Session, flash:Flash, message:Messages)
 
 @main("Login Page") {
 
 <div class="row">
+    <div class="col-md-4"></div>
+    <div class="form-group col-md-4">
+
     @if(flash.get("error").isDefined){
     <div class="alert alert-danger">
         <strong>Warning: </strong> Login Failed.
     </div>
     }
-    <div class="col-md-4"></div>
-    <div class="form-group col-md-4">
 
     @helper.form(action = routes.Login.processForm()) {
 

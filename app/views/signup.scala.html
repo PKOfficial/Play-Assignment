@@ -1,15 +1,17 @@
-@(myLogin: Form[(String, String, String)])(implicit flash: Flash, message:Messages)
+@(myLogin: Form[(String, String, String)])(implicit session: play.api.mvc.Session, flash: Flash, message:Messages)
 
-@main("Login Page") {
+@main("Sign Up") {
 
 <div class="row">
-    @if(flash.get("error").isDefined){
-    <div class="alert alert-danger">
-        <strong>Warning: </strong> Password do not matched.
-    </div>
-    }
+
     <div class="col-md-4"></div>
     <div class="form-group col-md-4">
+
+        @if(flash.get("error").isDefined){
+        <div class="alert alert-danger">
+            <strong>Warning: </strong> Password do not matched.
+        </div>
+        }
 
         @helper.form(action = routes.SignUp.processForm()) {
 
