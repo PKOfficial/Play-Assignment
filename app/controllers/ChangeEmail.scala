@@ -46,7 +46,7 @@ class ChangeEmail extends Controller {
         else if(customerData._2 != customerData._3)
           Redirect(routes.ChangeEmail.showForm()).flashing("error"->"Email do not match.")
         else
-          Ok("Go To Home")
+          Redirect(routes.AccountInfo.showForm())
       }
     )
   }

@@ -41,7 +41,7 @@ class ForgetPassword extends Controller{
         if(customerData != customerexist.email)
           Redirect(routes.ForgetPassword.showForm()).flashing("error"->"Invalid Email")
         else
-          Ok("Go to Login")
+         Redirect(routes.Login.showForm()).flashing("success" -> "E-Mail has been sent with new Password")
       })
   }
 }
