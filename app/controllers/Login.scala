@@ -23,7 +23,7 @@ class Login extends Controller {
     )(Customer.apply)(Customer.unapply)
   }
 
-  def showForm() = Action {
+  def showForm() = Action { implicit request =>
     Ok(views.html.login(customerForm))
   }
 
@@ -40,7 +40,7 @@ class Login extends Controller {
         if(customer.email == customerData.email && customer.password == customerData.password)
           Ok("Now Here")
         else
-        Redirect(routes.Login.showForm())
+        Redirect(routes.Login.showForm()).flashing("error"->"Login Failed")
       }
 
     )
