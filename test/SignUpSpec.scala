@@ -17,6 +17,11 @@ class SignUpSpec extends Specification {
       contentAsString(signup) must contain("Sign Up")
     }
 
+    "render the SignUp page with session" in new WithApplication {
+      val signup = route(FakeRequest(GET, "/signup").withSession("email" -> "some@email.com")).get
+      status(signup) must equalTo(303)
+    }
+
     "Putting the Form using Valid Fields" in new WithApplication {
 
       val login = route(FakeRequest(POST, "/submit").withFormUrlEncodedBody("email" -> "akash.sethi@knoldus.in", "password" -> "akash","repeatPassword" -> "akash")).get

@@ -16,6 +16,9 @@ import play.api.mvc.{ResponseHeader, Result, Controller, Action}
 class Logout extends Controller {
 
   def showForm = Action{ implicit request =>
-    Redirect(routes.Login.showForm()).withNewSession
+    if (request.session.get("email").isEmpty)
+      Redirect(routes.Login.showForm())
+    else
+      Redirect(routes.Login.showForm()).withNewSession
   }
 }

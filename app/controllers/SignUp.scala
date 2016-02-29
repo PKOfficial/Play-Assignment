@@ -25,7 +25,7 @@ class SignUp extends Controller {
 
   def showForm = Action { implicit request =>
     if (request.session.get("email").isDefined)
-      Ok(views.html.home())
+      Redirect(routes.AccountInfo.showForm())
     else
       Ok(views.html.signup(customerForm))
   }
@@ -41,7 +41,7 @@ class SignUp extends Controller {
         if(customerData._2 != customerData._3 )
         Redirect(routes.SignUp.showForm()).flashing("error"->"Password not matched")
         else
-          Ok("Success")
+          Redirect(routes.Login.showForm())
       }
     )
   }
