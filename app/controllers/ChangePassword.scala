@@ -48,7 +48,7 @@ class ChangePassword extends Controller {
         else if(customerData._3 != customerData._4 )
           Redirect(routes.ChangePassword.showForm()).flashing("error"->"Password not matched")
         else
-          Ok("Go To Home")
+          Redirect(routes.AccountInfo.showForm())
       }
     )
   }

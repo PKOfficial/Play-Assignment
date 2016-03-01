@@ -23,19 +23,20 @@ class SignUpSpec extends Specification {
     }
 
     "Putting the Form using Valid Fields" in new WithApplication {
-
-      val login = route(FakeRequest(POST, "/submit").withFormUrlEncodedBody("email" -> "akash.sethi@knoldus.in", "password" -> "akash","repeatPassword" -> "akash")).get
+      val login = route(FakeRequest(POST, "/signedup").withFormUrlEncodedBody("email" -> "akash.sethi@knoldus.in", "password" -> "akash","repeatPassword" -> "akash")).get
       status(login) must equalTo(303)
     }
+
     "Putting the Form using InValid Fields" in new WithApplication {
-
-      val login = route(FakeRequest(POST, "/submit").withFormUrlEncodedBody("email" -> "akash.sethiknoldus.in", "password" -> "akash","repeatPassword" -> "akash")).get
+      val login = route(FakeRequest(POST, "/signedup").withFormUrlEncodedBody("email" -> "akash.sethiknoldus.in", "password" -> "akash","repeatPassword" -> "akash")).get
       status(login) must equalTo(303)
     }
-    "Putting the Form using Empty Fields" in new WithApplication {
 
-      val login = route(FakeRequest(POST, "/submit").withFormUrlEncodedBody("email" -> "", "password" -> "","" -> "akash")).get
+    "Putting the Form using Empty Fields" in new WithApplication {
+      val login = route(FakeRequest(POST, "/signedup").withFormUrlEncodedBody("email" -> "", "password" -> "","" -> "akash")).get
       status(login) must equalTo(400)
     }
+
   }
+
 }

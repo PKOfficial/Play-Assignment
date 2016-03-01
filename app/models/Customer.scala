@@ -10,8 +10,6 @@ case class Customer(email:String,password:String)
 trait CustomerServiceApi {
 
   def getCustomer(email:String): Customer
-  def updateCustomerEmail(email:String): Boolean
-  def updateCustomerPassword(email:String,password:String): Boolean
 
 }
 
@@ -27,20 +25,9 @@ class CustomerService extends CustomerServiceApi{
         case head::tail  => local(tail)
         case Nil => Customer("","")
       }
-    }
 
+    }
     local(listOfCustomer)
   }
 
-  override def updateCustomerEmail(email: String): Boolean = {
-
-     true
-
-  }
-
-  override def updateCustomerPassword(email:String,password:String): Boolean = {
-
-    true
-
-  }
 }

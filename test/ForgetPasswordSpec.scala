@@ -16,18 +16,25 @@ class ForgetPasswordSpec extends Specification {
       contentType(signup) must beSome.which(_ == "text/html")
       contentAsString(signup) must contain("Forget Password")
     }
-    "Putting the Form using Valid Fields" in new WithApplication {
 
+    "render the ForgetPassword page with Sessions" in new WithApplication {
+      val signup = route(FakeRequest(GET, "/forget").withSession("email" -> "some@email.com")).get
+      status(signup) must equalTo(OK)
+      contentType(signup) must beSome.which(_ == "text/html")
+      contentAsString(signup) must contain("Home Page")
+    }
+
+    "Putting the Form using Valid Fields" in new WithApplication {
       val login = route(FakeRequest(POST, "/forgetpass").withFormUrlEncodedBody("email" -> "akash.sethi@knoldus.in")).get
       status(login) must equalTo(303)
     }
-    "Putting the Form using InValid Fields" in new WithApplication {
 
+    "Putting the Form using InValid Fields" in new WithApplication {
       val login = route(FakeRequest(POST, "/forgetpass").withFormUrlEncodedBody("email" -> "akash.sethiknoldus.in")).get
       status(login) must equalTo(303)
     }
-    "Putting the Form using Empty Fields" in new WithApplication {
 
+    "Putting the Form using Empty Fields" in new WithApplication {
       val login = route(FakeRequest(POST, "/forgetpass").withFormUrlEncodedBody("email" -> "")).get
       status(login) must equalTo(400)
     }

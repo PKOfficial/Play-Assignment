@@ -31,9 +31,7 @@ class SignUp extends Controller {
   }
 
   def processForm = Action{ implicit request =>
-
     customerForm.bindFromRequest.fold(
-
       formErrors => {
         BadRequest(views.html.signup(formErrors))
       },
@@ -45,4 +43,5 @@ class SignUp extends Controller {
       }
     )
   }
+
 }

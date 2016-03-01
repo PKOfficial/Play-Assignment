@@ -14,26 +14,29 @@ class LoginSpec extends Specification {
 
     "render the login page" in new WithApplication {
       val home = route(FakeRequest(GET, "/login")).get
-
       status(home) must equalTo(OK)
       contentType(home) must beSome.which(_ == "text/html")
       contentAsString(home) must contain("Login")
     }
 
-    "Login the Form using Valid Fields" in new WithApplication {
+    "render the login page with Sessions" in new WithApplication {
+      val home = route(FakeRequest(GET, "/login").withSession("email" -> "some@email.com")).get
+      status(home) must equalTo(OK)
+      contentType(home) must beSome.which(_ == "text/html")
+      contentAsString(home) must contain("Home Page")
+    }
 
+    "Login the Form using Valid Fields" in new WithApplication {
       val login = route(FakeRequest(POST, "/submit").withFormUrlEncodedBody("email" -> "akash.sethi@knoldus.in", "password" -> "akash")).get
       status(login) must equalTo(303)
     }
 
     "Login the Form using InValid Fields" in new WithApplication {
-
       val login = route(FakeRequest(POST, "/submit").withFormUrlEncodedBody("email" -> "aksh.sethi@knoldus.in", "password" -> "akash")).get
       status(login) must equalTo(303)
     }
 
     "Login the Form using Empty Fields" in new WithApplication {
-
       val login = route(FakeRequest(POST, "/submit").withFormUrlEncodedBody("email" -> "", "password" -> "")).get
       status(login) must equalTo(400)
     }
