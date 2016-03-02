@@ -13,7 +13,7 @@ class ChangeEmailController extends Controller {
 
   val customerForm = Form {
     tuple(
-      "email" -> nonEmptyText.verifying("Email Not found ", data => {customerObj.getCustomer(data).isDefined} ),
+      "email" -> nonEmptyText.verifying("Email Not found ", data => {customerObj.getCustomer(data).isDefined}),
       "newEmail" -> nonEmptyText,
       "repeatEmail" -> nonEmptyText
     ).verifying("Email do not match", data => {data._2 == data._3})
@@ -31,15 +31,11 @@ class ChangeEmailController extends Controller {
     customerForm.bindFromRequest.fold(
 
       formErrors => {
+        //formErrors.errors.map
         BadRequest(views.html.changeEmail(formErrors,request.session.get("email").get))
       },
       customerData => {
-        if(customerObj.getCustomer(customerData._1).isDefined) {
-          Redirect(routes.AccountInfoController.showForm())
-        }
-        else{
-          Redirect(routes.ChangeEmailController.showForm()).flashing("error" -> "Email is not correct !!")
-        }
+        Redirect(routes.AccountInfoController.showForm())
       }
     )
   }

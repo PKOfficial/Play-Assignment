@@ -7,13 +7,13 @@
     <div class="form-group col-md-4">
         @if(flash.get("error").isDefined){
         <div class="alert alert-danger">
-            <strong>Warning: </strong> @flash.get("error")
+            <strong>Warning123: </strong> @flash.get("error")
         </div>
         }
 
         @if(myLogin.hasErrors) {
         <div class="alert alert-danger">
-            <strong>Warning: </strong> @myLogin.globalError.map{error => @error.message}
+            <strong>Warning: </strong> @myLogin.errors.map{error => @error.message}
         </div>
         }
 
