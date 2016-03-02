@@ -13,7 +13,7 @@ class ChangeEmailController extends Controller {
 
   val customerForm = Form {
     tuple(
-      "email" -> nonEmptyText,
+      "email" -> nonEmptyText.verifying("Email Not found ", data => {customerObj.getCustomer(data).isDefined} ),
       "newEmail" -> nonEmptyText,
       "repeatEmail" -> nonEmptyText
     ).verifying("Email do not match", data => {data._2 == data._3})

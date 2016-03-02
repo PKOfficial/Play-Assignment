@@ -7,7 +7,7 @@ import play.api.mvc.RequestHeader
 /**
   * Created by prabhat on 29/2/16.
   */
-class ChangePasswordSpec extends Specification {
+class ChangePasswordControllerSpec extends Specification {
 
   "Change Password" should {
 

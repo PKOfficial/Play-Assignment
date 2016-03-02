@@ -1,6 +1,6 @@
-@(myLogin: Form[(String, String, String)])(implicit session: play.api.mvc.Session, flash:Flash, message:Messages)
+@(myLogin: Form[(String, String, String)] , email:String)(implicit session: play.api.mvc.Session, flash:Flash, message:Messages)
 
-@main("Change Email") {
+@main("Change Email", Option(email)){
 
 <div class="row">
     <div class="col-md-4"></div>
@@ -11,7 +11,13 @@
         </div>
         }
 
-        @helper.form(action = routes.ChangeEmail.processForm()) {
+        @if(myLogin.hasErrors) {
+        <div class="alert alert-danger">
+            <strong>Warning: </strong> @myLogin.globalError.map{error => @error.message}
+        </div>
+        }
+
+        @helper.form(action = routes.ChangeEmailController.processForm()) {
 
         @helper.inputText(myLogin("email"),'type->"email",'class->"form-control",'_label -> "Current Email",'_showConstraints -> false,'required->true)
 

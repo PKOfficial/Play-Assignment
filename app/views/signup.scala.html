@@ -1,19 +1,20 @@
 @(myLogin: Form[(String, String, String)])(implicit session: play.api.mvc.Session, flash: Flash, message:Messages)
 
-@main("Sign Up") {
+@main("Sign Up", None){
 
 <div class="row">
 
     <div class="col-md-4"></div>
     <div class="form-group col-md-4">
 
-        @if(flash.get("error").isDefined){
+        @if(myLogin.hasErrors) {
         <div class="alert alert-danger">
-            <strong>Warning: </strong> Password do not matched.
+            <strong>Warning: </strong> @myLogin.globalError.map{error => @error.message}
         </div>
         }
 
-        @helper.form(action = routes.SignUp.processForm()) {
+
+        @helper.form(action = routes.SignUpController.processForm()) {
 
         @helper.inputText(myLogin("email"),'type->"email",'class->"form-control",'_label -> "Email",'_showConstraints -> false,'required->true)
 

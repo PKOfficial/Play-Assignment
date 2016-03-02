@@ -1,6 +1,6 @@
 @(myLogin: Form[Customer])(implicit session: play.api.mvc.Session, flash:Flash, message:Messages)
 
-@main("Login Page") {
+@main("Login Page" , None) {
 
 <div class="row">
     <div class="col-md-4"></div>
@@ -12,7 +12,7 @@
     </div>
     }
 
-    @helper.form(action = routes.Login.processForm()) {
+    @helper.form(action = routes.LoginController.processForm()) {
 
     @helper.inputText(myLogin("email"),'type->"email",'class->"form-control",'_label -> "Email",'_showConstraints -> false,'required->true)
 

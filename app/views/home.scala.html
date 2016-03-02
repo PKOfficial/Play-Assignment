@@ -1,6 +1,6 @@
-@()(implicit session: play.api.mvc.Session, flash:Flash, message:Messages)
+@(email:String)(implicit session: play.api.mvc.Session, flash:Flash, message:Messages)
 
-@main("Home Page") {
+@main("Home Page", Option(email)) {
 
 <div class="row">
     <div class="col-md-4"></div>

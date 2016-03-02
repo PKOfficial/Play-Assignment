@@ -6,7 +6,7 @@ import play.api.test.Helpers._
 /**
   * Created by akash on 29/2/16.
   */
-class SignUpSpec extends Specification {
+class SignUpControllerSpec extends Specification {
 
   "Sign Up" should {
 

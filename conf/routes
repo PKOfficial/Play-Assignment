@@ -3,19 +3,19 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.AccountInfo.showForm
+GET     /                           controllers.AccountInfoController.showForm
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 GET     /webjars/*file                    controllers.WebJarAssets.at(file)
-GET     /login                      controllers.Login.showForm
-GET     /signup                     controllers.SignUp.showForm
-GET     /changepass                     controllers.ChangePassword.showForm
-GET     /logout                     controllers.Logout.showForm
-GET     /changeemail                     controllers.ChangeEmail.showForm
-GET     /forget                     controllers.ForgetPassword.showForm
-POST    /submit                     controllers.Login.processForm
-POST    /signedup                     controllers.SignUp.processForm
-POST    /forgetpass                     controllers.ForgetPassword.processForm
-POST    /changepassword                     controllers.ChangePassword.processForm
-POST    /changemail                    controllers.ChangeEmail.processForm
+GET     /login                      controllers.LoginController.showForm
+GET     /signup                     controllers.SignUpController.showForm
+GET     /changepass                     controllers.ChangePasswordController.showForm
+GET     /logout                     controllers.LogoutController.showForm
+GET     /changeemail                     controllers.ChangeEmailController.showForm
+GET     /forget                     controllers.ForgetPasswordController.showForm
+POST    /submit                     controllers.LoginController.processForm
+POST    /signedup                     controllers.SignUpController.processForm
+POST    /forgetpass                     controllers.ForgetPasswordController.processForm
+POST    /changepassword                     controllers.ChangePasswordController.processForm
+POST    /changemail                    controllers.ChangeEmailController.processForm

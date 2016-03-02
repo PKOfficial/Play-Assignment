@@ -1,6 +1,6 @@
-@(myLogin: Form[(String, String, String, String)])(implicit session: play.api.mvc.Session, flash:Flash, message:Messages)
+@(myLogin: Form[(String, String, String, String)] , email:String)(implicit session: play.api.mvc.Session, flash:Flash, message:Messages)
 
-@main("Change Password") {
+@main("Change Password",Option(email)) {
 
 <div class="row">
     <div class="col-md-4"></div>
@@ -12,7 +12,7 @@
         </div>
         }
 
-        @helper.form(action = routes.ChangePassword.processForm()) {
+        @helper.form(action = routes.ChangePasswordController.processForm()) {
 
         @helper.inputText(myLogin("email"),'type->"email",'class->"form-control",'_label -> "Email",'_showConstraints -> false,'required->true)
 

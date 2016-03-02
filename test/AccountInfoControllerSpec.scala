@@ -6,7 +6,7 @@ import play.api.test.Helpers._
 /**
   * Created by prabhat on 29/2/16.
   */
-class AccountInfo  extends Specification{
+class AccountInfoControllerSpec  extends Specification{
 
   "Home Page" should {
 

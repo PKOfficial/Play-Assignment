@@ -8,7 +8,7 @@ import play.api.test.Helpers._
   * Created by akash on 29/2/16.
   */
 @RunWith(classOf[JUnitRunner])
-class LoginSpec extends Specification {
+class LoginControllerSpec extends Specification {
 
   "Login" should {
 

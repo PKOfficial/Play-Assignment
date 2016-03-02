@@ -9,7 +9,7 @@ case class Customer(email:String,password:String)
 
 trait CustomerServiceApi {
 
-  def getCustomer(email:String): Customer
+  def getCustomer(email:String): Option[Customer]
 
 }
 
@@ -17,13 +17,13 @@ class CustomerService extends CustomerServiceApi{
 
   val listOfCustomer:List[Customer] = List(Customer("akash.sethi@knoldus.in","akash"),Customer("prabhat.kashyap@knoldus.in","prabhat"))
 
-  override def getCustomer(email: String): Customer = {
+  override def getCustomer(email: String): Option[Customer] = {
 
-    def local(list:List[Customer]):Customer = {
+    def local(list:List[Customer]):Option[Customer] = {
       list match{
-        case head::tail if head.email == email => head
+        case head::tail if head.email == email => Some(head)
         case head::tail  => local(tail)
-        case Nil => Customer("","")
+        case Nil => None
       }
 
     }
