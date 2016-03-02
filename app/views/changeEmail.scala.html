@@ -5,11 +5,6 @@
 <div class="row">
     <div class="col-md-4"></div>
     <div class="form-group col-md-4">
-        @if(flash.get("error").isDefined){
-        <div class="alert alert-danger">
-            <strong>Warning123: </strong> @flash.get("error")
-        </div>
-        }
 
         @if(myLogin.hasErrors) {
         <div class="alert alert-danger">

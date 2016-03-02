@@ -2,8 +2,7 @@ package controllers
 
 import play.api.data.Form
 import play.api.data.Forms._
-import play.api.mvc.{AnyContent, Action, Controller}
-import scala.concurrent.Future
+import play.api.mvc.{Action, Controller}
 import play.api.i18n.Messages.Implicits._
 import play.api.Play.current
 
@@ -12,6 +11,7 @@ class SignUpController extends Controller {
   /**
     * customerForm is an object of form with tuples
     * email, password and repeatPassword
+    * It will verify new password and repeat password
     */
   val customerForm = Form {
     tuple(
@@ -36,6 +36,12 @@ class SignUpController extends Controller {
       Ok(views.html.signup(customerForm))
   }
 
+  /**
+    * processForm is an Action taking request implicitly
+    * It will process form and if form fails to validate then
+    * It will return Bad Request with error form on signup view otherwise
+    * It will redirect to Login Page
+    */
   def processForm = Action{ implicit request =>
     customerForm.bindFromRequest.fold(
       formErrors => {

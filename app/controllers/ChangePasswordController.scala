@@ -1,6 +1,6 @@
 package controllers
 
-import models.CustomerService
+import models.{CustomerServices, CustomerService}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.{Action, Controller}
@@ -13,11 +13,11 @@ class ChangePasswordController extends Controller {
 
   val customerForm = Form {
     tuple(
-      "email" -> nonEmptyText,
+      "email" -> nonEmptyText.verifying("Email Not found ", data => {CustomerServices.validateEmail(data)}),
       "oldPassword" -> nonEmptyText,
       "newPassword" -> nonEmptyText,
       "repeatPassword" -> nonEmptyText
-    )
+    ).verifying("Password is not matched with Email",data => {CustomerServices.validatePassword(data._1,data._2)}).verifying("Password Not Matched", data => {data._3 == data._4})
   }
 
   def showForm = Action{implicit request =>
@@ -34,20 +34,7 @@ class ChangePasswordController extends Controller {
       formErrors => {
         BadRequest(views.html.changepass(formErrors, request.session.get("email").get))
       },
-      customerData => {
-        if(customerObj.getCustomer(customerData._1).isDefined) {
-          val customerExist = customerObj.getCustomer(customerData._1).get
-          if (customerData._2 != customerExist.password)
-            Redirect(routes.ChangePasswordController.showForm()).flashing("error" -> "Invalid Password")
-          else if (customerData._3 != customerData._4)
-            Redirect(routes.ChangePasswordController.showForm()).flashing("error" -> "Password not matched")
-          else
-            Redirect(routes.AccountInfoController.showForm())
-        }
-        else{
-          Redirect(routes.ChangePasswordController.showForm()).flashing("error" -> "Invalid Email Provided")
-        }
-      }
+      customerData => Redirect(routes.AccountInfoController.showForm())
     )
   }
 

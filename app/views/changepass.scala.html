@@ -6,21 +6,21 @@
     <div class="col-md-4"></div>
     <div class="form-group col-md-4">
 
-        @if(flash.get("error").isDefined){
+        @if(myLogin.hasErrors) {
         <div class="alert alert-danger">
-            <strong>Warning: </strong> @flash.get("error")
+            <strong>Warning: </strong> @myLogin.errors.map{error => @error.message}
         </div>
         }
 
         @helper.form(action = routes.ChangePasswordController.processForm()) {
 
-        @helper.inputText(myLogin("email"),'type->"email",'class->"form-control",'_label -> "Email",'_showConstraints -> false,'required->true)
+        @helper.inputText(myLogin("email"),'type->"email",'class->"form-control",'_label -> "Email",'_showErrors -> false,'_showConstraints -> false,'required->true)
 
-        @helper.inputPassword(myLogin("oldPassword"),'class->"form-control",'_label -> "Old Password",'_showConstraints -> false,'required -> false)
+        @helper.inputPassword(myLogin("oldPassword"),'class->"form-control",'_label -> "Old Password",'_showErrors -> false,'_showConstraints -> false,'required -> false)
 
-        @helper.inputPassword(myLogin("newPassword"),'class->"form-control",'_label -> "New Password",'_showConstraints -> false,'required -> false)
+        @helper.inputPassword(myLogin("newPassword"),'class->"form-control",'_label -> "New Password",'_showErrors -> false,'_showConstraints -> false,'required -> false)
 
-        @helper.inputPassword(myLogin("repeatPassword"),'class->"form-control",'_label -> "Repeat Password",'_showConstraints -> false,'required -> false)
+        @helper.inputPassword(myLogin("repeatPassword"),'class->"form-control",'_label -> "Repeat Password",'_showErrors -> false,'_showConstraints -> false,'required -> false)
 
         <button type="submit" class="btn btn-default">Submit</button>
         <p style="margin-top:40px;text-align:center"><a href="/">Change Your Mind? Go Back!!</a></p>

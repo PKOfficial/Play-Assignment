@@ -1,6 +1,6 @@
 package controllers
 
-import models.CustomerService
+import models.{CustomerServices, CustomerService}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.{Action, Controller}
@@ -12,7 +12,7 @@ class ForgetPasswordController extends Controller{
   val customerObj = new CustomerService
   val customerForm = Form {
     single(
-      "email" -> nonEmptyText
+      "email" -> nonEmptyText.verifying("Invalid Email", data => CustomerServices.validateEmail(data))
     )
   }
 
@@ -31,12 +31,7 @@ class ForgetPasswordController extends Controller{
         BadRequest(views.html.forgetpass(formErrors))
       },
       customerData => {
-        if(customerObj.getCustomer(customerData).isDefined) {
-            Redirect(routes.LoginController.showForm()).flashing("success" -> "E-Mail has been sent with new Password")
-        }
-        else{
-          Redirect(routes.ForgetPasswordController.showForm()).flashing("error" -> "Invalid Email")
-        }
+        Redirect(routes.LoginController.showForm()).flashing("success" -> "E-Mail has been sent with new Password")
       })
   }
 }

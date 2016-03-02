@@ -1,6 +1,6 @@
 package controllers
 
-import models.CustomerService
+import models.{CustomerServices, CustomerService}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.{Action, Controller}
@@ -13,7 +13,7 @@ class ChangeEmailController extends Controller {
 
   val customerForm = Form {
     tuple(
-      "email" -> nonEmptyText.verifying("Email Not found ", data => {customerObj.getCustomer(data).isDefined}),
+      "email" -> nonEmptyText.verifying("Email Not found ", data => {CustomerServices.validateEmail(data)}),
       "newEmail" -> nonEmptyText,
       "repeatEmail" -> nonEmptyText
     ).verifying("Email do not match", data => {data._2 == data._3})
